@@ -1,0 +1,36 @@
+﻿<Application x:Class="FPV.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:FPV"
+             xmlns:viewModels="clr-namespace:FPV.ViewModels"
+             xmlns:view="clr-namespace:FPV.Views">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Assets/Colors.xaml" />
+                <ResourceDictionary Source="Assets/ButtonStyle.xaml" />
+                <ResourceDictionary Source="Assets/Icons.xaml" />
+                <ResourceDictionary Source="Assets/ListeViewStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">
+                <view:HomeView />
+            </DataTemplate>
+
+
+            <DataTemplate DataType="{x:Type viewModels:FpvOnePilotTestViewModel}">
+                <view:FpvOnePilotTestView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:FpvOneRaceTestViewModel}">
+                <view:FpvOneRaceTestView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:FpvOneProTestViewModel}">
+                <view:FpvOneProTestView />
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

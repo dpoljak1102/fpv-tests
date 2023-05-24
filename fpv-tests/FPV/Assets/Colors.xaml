@@ -1,0 +1,71 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--#region COLORS-->
+    <SolidColorBrush x:Key="ColorBlack">#000000</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorLightBlack">#181818</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorDarkSilver">#252525</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorSilver">#bbbbbb</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorWhite">#FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorRed">#ff0000</SolidColorBrush>
+    <SolidColorBrush x:Key="ColorDarkRed">#B9121B</SolidColorBrush>
+    <!--#endregion-->
+
+    <!--Search Background Color-->
+    <Color x:Key="SearchBackgroundColor">#000000</Color>
+    <SolidColorBrush x:Key="SearchBackgroundBrush"
+                     Color="{StaticResource SearchBackgroundColor}" />
+
+    <!-- Inactive Font Color -->
+    <Color x:Key="InactiveFontColor">#838383</Color>
+    <SolidColorBrush x:Key="InactiveFontBrush"
+                     Color="{StaticResource InactiveFontColor}" />
+
+    <!-- Caption Font Color -->
+    <Color x:Key="CaptionFontColor">White</Color>
+    <SolidColorBrush x:Key="CaptionFontBrush"
+                     Color="{StaticResource CaptionFontColor}" />
+
+    <!--Settings Icon Fill Color-->
+    <Color x:Key="SettingsIconColor">#FFFFFF</Color>
+    <SolidColorBrush x:Key="SettingsIconBrush"
+                     Color="{StaticResource SettingsIconColor}" />
+
+    <!--#region Store Page Brushes-->
+    <Color x:Key="IconInactiveColor">#838383</Color>
+    <SolidColorBrush x:Key="IconInactiveBrush"
+                     Color="{StaticResource IconInactiveColor}" />
+
+    <Color x:Key="IconActiveColor">White</Color>
+    <SolidColorBrush x:Key="IconActiveBrush"
+                     Color="{StaticResource IconActiveColor}" />
+
+
+    <!--ProgressBar Background Brush-->
+    <SolidColorBrush x:Key="ProgressBar.Background"
+                     Color="#FFE6E6E6" />
+
+    <!--ProgressBar Progress Brush-->
+    <SolidColorBrush x:Key="ProgressBar.Progress"
+                     Color="#FFE6E6E6" />
+
+    <!--ProgressBar Stripe Brush-->
+    <SolidColorBrush x:Key="ProgressBar.Stripe"
+                     Color="#33FFFFFF" />
+
+    <!--Back Icon Color-->
+    <Color x:Key="BackIconColor">#7D7D7D</Color>
+    <SolidColorBrush x:Key="BackIconBrush"
+                     Color="{StaticResource BackIconColor}" />
+
+    <!--Button Background Hover Color-->
+    <Color x:Key="ButtonBackgroundHoverColor">#2A2A2A</Color>
+    <SolidColorBrush x:Key="ButtonBackgroundHoverBrush"
+                     Color="{StaticResource ButtonBackgroundHoverColor}" />
+
+    <!--#region Settings Page Brushes-->
+    <!-- Border Brush Color -->
+    <Color x:Key="BorderColor">#363636</Color>
+    <SolidColorBrush x:Key="BorderBrush"
+                     Color="{StaticResource BorderColor}" />
+    <!--#endregion-->
+</ResourceDictionary>

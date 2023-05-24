@@ -1,0 +1,86 @@
+﻿<Window x:Class="FPV.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FPV"
+        mc:Ignorable="d"
+        Title="Home"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="CanMinimize"
+        Name="MainWindowName"
+        MinHeight="300"
+        MinWidth="750"
+        Loaded="Window_Loaded"
+        SizeChanged="Window_SizeChanged">
+    <Grid Background="{DynamicResource ColorBlack}"
+          MouseLeftButtonDown="Grid_MouseLeftButtonDown"
+          MouseMove="Grid_MouseMove">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!-- WINDOWS HEADER-->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <!-- MINIMIZE BUTTON -->
+                <Button Height="18"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Center"
+                        FontSize="23"
+                        Focusable="False"
+                        Margin="8,2"
+                        Command="{Binding MinimizeWindowCommand, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        Foreground="{DynamicResource IconActiveBrush}"
+                        Opacity="0.5"
+                        Style="{DynamicResource IconOnlyButtonStyle}"
+                        Content="{DynamicResource  MinimizeIcon}" />
+                
+                <!-- MAXIMIZE BUTTON -->
+                <Button  Height="18"
+                         VerticalAlignment="Top"
+                         HorizontalAlignment="Center"
+                         FontSize="20"
+                         Focusable="False"
+                         Margin="8,2"
+                         Command="{Binding MaximizeWindowCommand, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                         Foreground="{DynamicResource IconActiveBrush}"
+                         Opacity="0.5"
+                         Style="{DynamicResource IconOnlyButtonStyle}"
+                         Content="{DynamicResource  MaximizeIcon}" />
+                
+                <!-- CLOSE BUTTON -->
+                <Button  Height="18"
+                         VerticalAlignment="Top"
+                         HorizontalAlignment="Center"
+                         FontSize="23"
+                         Focusable="False"
+                         Margin="8,2"
+                         Command="{Binding CloseWindowCommand, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                         Foreground="{DynamicResource IconActiveBrush}"
+                         Style="{DynamicResource IconOnlyButtonStyle}"
+                         Opacity="0.5"
+                         Content="{DynamicResource  CloseIcon}" />
+
+
+            </StackPanel>
+
+        </Grid>
+        
+        <!-- USERCONTROLER CONTENT-->
+        <ContentControl Grid.Row="1"
+                        Margin="5"
+                        Content="{Binding NavigationService.CurrentView, UpdateSourceTrigger=PropertyChanged}">
+        </ContentControl>
+    </Grid>
+</Window>
