@@ -1,0 +1,6 @@
+.vs
+
+fpv-tests/.vs
+fpv-tests/bin
+fpv-tests/FPV/bin
+fpv-tests/FPV/obj
