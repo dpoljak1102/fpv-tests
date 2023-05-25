@@ -1,25 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FPV
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private const int SWP_SHOWWINDOW = 0x0040;       // Flag to show the window
@@ -66,12 +52,14 @@ namespace FPV
             {
                 try
                 {
-                    DragMove();
-
+                    Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        DragMove();
+                    }));
                 }
                 catch
                 {
-                    //Leave this empty
+                    // Leave this empty or handle the exception as needed
                 }
             }
         }
@@ -82,19 +70,36 @@ namespace FPV
             {
                 try
                 {
-                    DragMove();
-
+                    Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        DragMove();
+                    }));
                 }
                 catch
                 {
-                    //Leave this empty
+                    // Leave this empty or handle the exception as needed
                 }
             }
         }
 
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void Window_LocationChanged(object sender, EventArgs e)
         {
             if (WindowState == WindowState.Maximized && !isMaximized)
+            {
+                // If the window has transitioned to maximized state
+                isMaximized = true;
+                MaximizeWindowWithoutCoveringTaskbar();
+            }
+            else if (WindowState == WindowState.Normal)
+            {
+                // If the window has transitioned to normal state
+                isMaximized = false;
+            }
+        }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            if (WindowState == WindowState.Maximized)
             {
                 // If the window has transitioned to maximized state
                 isMaximized = true;
@@ -114,8 +119,17 @@ namespace FPV
 
             // Set the maximum window height to avoid covering the taskbar
             previousHeight = Height;
-            MaxHeight = SystemParameters.PrimaryScreenHeight - taskbarHeight;
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                MaxHeight = SystemParameters.PrimaryScreenHeight - taskbarHeight;
+            }));
         }
-
     }
+
+
+
+
+
+
+
 }

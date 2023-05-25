@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="Assets/ButtonStyle.xaml" />
                 <ResourceDictionary Source="Assets/Icons.xaml" />
                 <ResourceDictionary Source="Assets/ListeViewStyle.xaml" />
+                <ResourceDictionary Source="Assets/TextBoxStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">

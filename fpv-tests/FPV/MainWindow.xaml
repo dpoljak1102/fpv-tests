@@ -14,17 +14,18 @@
         MinHeight="300"
         MinWidth="750"
         Loaded="Window_Loaded"
-        SizeChanged="Window_SizeChanged">
-    <Grid Background="{DynamicResource ColorBlack}"
-          MouseLeftButtonDown="Grid_MouseLeftButtonDown"
-          MouseMove="Grid_MouseMove">
+        SizeChanged="Window_LocationChanged">
+    <Grid Background="{DynamicResource ColorBlack}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <!-- WINDOWS HEADER-->
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0"
+              Background="{DynamicResource ColorBlack}"
+              MouseLeftButtonDown="Grid_MouseLeftButtonDown"
+              MouseMove="Grid_MouseMove">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />

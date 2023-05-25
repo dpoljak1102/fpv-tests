@@ -12,11 +12,91 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
+        <!--GO BACK TO HOME-->
         <Button Style="{DynamicResource SettingsNavBackButtonStyle}"
                 Command="{Binding NavigateHomeCommand}" />
 
         <!--CONTENT-->
         <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  Width="0.6*"/>
+                <ColumnDefinition  Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid Grid.Column="0"
+                  Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <Border BorderBrush="{DynamicResource BorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                    <ScrollViewer Grid.Row="0"
+                                  VerticalScrollBarVisibility="Auto">
+                        <TextBox Background="Transparent"
+                                 Text="{Binding SerialPortReceivedMessage, UpdateSourceTrigger=PropertyChanged}"
+                                 Foreground="#56b233"
+                                 BorderThickness="0"
+                                 Margin="5"
+                                 FontSize="15"
+                                 FontFamily="Arial"
+                                 TextWrapping="Wrap"
+                                 HorizontalAlignment="Left"
+                                 IsReadOnly="True"
+                                 AcceptsReturn="True" />
+                    </ScrollViewer>
+                </Border>
+
+                <Grid Grid.Row="2">
+                    <TextBox Style="{DynamicResource TextBoxStyleInput}"
+                             Text="{Binding SerialPortCommand, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             FontSize="14"
+                             Background="Transparent"
+                             TextWrapping="Wrap"
+                             Foreground="{DynamicResource ColorSilver}"
+                             CaretBrush="{DynamicResource IconActiveBrush}">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter"
+                                        Command="{Binding SerialPortSendMessageCommand}" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+                </Grid>
+                
+
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="40"/>
+                    <RowDefinition  Height="*"/>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0"
+                        Margin="5"
+                        FontFamily="Arial"
+                        Width="150"
+                        Height="30"
+                        FontSize="15"
+                        IsDefault="True"
+                        Focusable="True"
+                        HorizontalAlignment="Left"
+                        Cursor="Hand"
+                        Content="{Binding SerialPortConnectionStatusMessage, UpdateSourceTrigger=PropertyChanged}"
+                        Command="{Binding SerialPortTryToConnectCommand, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Image Grid.Row="1"
+                       Source="../Assets/Images/fpv-one-pro.png"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Focusable="False"
+                       Width="750"/>
+            </Grid>
+
+
         </Grid>
     </Grid>
 </UserControl>
