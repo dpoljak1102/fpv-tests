@@ -13,12 +13,12 @@
                 <ResourceDictionary Source="Assets/Icons.xaml" />
                 <ResourceDictionary Source="Assets/ListeViewStyle.xaml" />
                 <ResourceDictionary Source="Assets/TextBoxStyle.xaml" />
+                <ResourceDictionary Source="Assets/ScrollBarStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">
                 <view:HomeView />
             </DataTemplate>
-
 
             <DataTemplate DataType="{x:Type viewModels:FpvOnePilotTestViewModel}">
                 <view:FpvOnePilotTestView />

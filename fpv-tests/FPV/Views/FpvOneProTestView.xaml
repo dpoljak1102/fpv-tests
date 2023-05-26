@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FPV.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="950" d:DesignWidth="1300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -40,7 +40,7 @@
                                   VerticalScrollBarVisibility="Auto">
                         <TextBox Background="Transparent"
                                  Text="{Binding SerialPortReceivedMessage, UpdateSourceTrigger=PropertyChanged}"
-                                 Foreground="#56b233"
+                                 Foreground="#44e800"
                                  BorderThickness="0"
                                  Margin="5"
                                  FontSize="15"
@@ -55,11 +55,12 @@
                 <Grid Grid.Row="2">
                     <TextBox Style="{DynamicResource TextBoxStyleInput}"
                              Text="{Binding SerialPortCommand, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                             FontSize="14"
+                             FontSize="13"
                              Background="Transparent"
                              TextWrapping="Wrap"
-                             Foreground="{DynamicResource ColorSilver}"
-                             CaretBrush="{DynamicResource IconActiveBrush}">
+                             Foreground="{DynamicResource IconActiveBrush}"
+                             CaretBrush="{DynamicResource IconActiveBrush}"
+                             Opacity="0.85">
                         <TextBox.InputBindings>
                             <KeyBinding Key="Enter"
                                         Command="{Binding SerialPortSendMessageCommand}" />
@@ -72,8 +73,9 @@
 
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition  Height="40"/>
-                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="50"/>
+                    <RowDefinition  Height="450"/>
+                    <RowDefinition  Height="auto" />
                 </Grid.RowDefinitions>
                 <Button Grid.Row="0"
                         Margin="5"
@@ -88,12 +90,27 @@
                         Content="{Binding SerialPortConnectionStatusMessage, UpdateSourceTrigger=PropertyChanged}"
                         Command="{Binding SerialPortTryToConnectCommand, UpdateSourceTrigger=PropertyChanged}" />
 
-                <Image Grid.Row="1"
-                       Source="../Assets/Images/fpv-one-pro.png"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Focusable="False"
-                       Width="750"/>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="../Assets/Images/pro-test-card.png"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Focusable="False"
+                           Height="400"/>
+                </Grid>
+
+                <Grid Grid.Row="2"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+
+                    </StackPanel>
+                    
+                </Grid>
+                
             </Grid>
 
 
