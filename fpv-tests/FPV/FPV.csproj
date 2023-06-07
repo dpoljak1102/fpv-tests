@@ -210,16 +210,16 @@
     <Resource Include="orqa-icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Images\fpv-one-race.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\fpv-one-pro.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\fpv-one-pilot.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\Images\pro-test-card.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\fpv-one-pilot-card.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\fpv-one-race-card.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\fpv-one-pro-card.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -11,47 +11,75 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="5" />
         </Grid.RowDefinitions>
 
-        <!--GO BACK TO HOME-->
+        <!--Return button-->
         <Button Style="{DynamicResource SettingsNavBackButtonStyle}"
                 Command="{Binding NavigateHomeCommand}" />
 
-        <!--CONTENT-->
+        <!--Content-->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition  Width="0.6*"/>
-                <ColumnDefinition  Width="*"/>
+                <ColumnDefinition  Width="0.55*"/>
+                <ColumnDefinition  Width="*" />
             </Grid.ColumnDefinitions>
-            
-            <Grid Grid.Column="0"
-                  Margin="10">
+
+            <!--Cmd-->
+            <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="5" />
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="45" />
                 </Grid.RowDefinitions>
+                
+                <!--Connect button-->
+                <Button Style="{DynamicResource ButtonStyleDefault}"
+                        FontFamily="Arial"
+                        Width="150"
+                        Height="30"
+                        FontSize="14"
+                        IsDefault="True"
+                        HorizontalAlignment="Left"
+                        Cursor="Hand"
+                        Content="{Binding SerialPortConnectionStatusMessage, UpdateSourceTrigger=PropertyChanged}"
+                        Command="{Binding SerialPortTryToConnectCommand, UpdateSourceTrigger=PropertyChanged}" />
 
-                <Border BorderBrush="{DynamicResource BorderBrush}"
-                        BorderThickness="1"
-                        CornerRadius="2">
-                    <ScrollViewer Grid.Row="0"
-                                  VerticalScrollBarVisibility="Auto">
-                        <TextBox Background="Transparent"
-                                 Text="{Binding SerialPortReceivedMessage, UpdateSourceTrigger=PropertyChanged}"
-                                 Foreground="#44e800"
-                                 BorderThickness="0"
-                                 Margin="5"
-                                 FontSize="15"
-                                 FontFamily="Arial"
-                                 TextWrapping="Wrap"
-                                 HorizontalAlignment="Left"
-                                 IsReadOnly="True"
-                                 AcceptsReturn="True" />
-                    </ScrollViewer>
-                </Border>
+                <!--Data from serial port-->
+                <ListView Grid.Row="1"
+                          ItemsSource="{Binding ReceivedMessages}"
+                          Background="Transparent"
+                          BorderBrush="{DynamicResource InactiveFontBrush}"
+                          BorderThickness="0.3"
+                          ItemContainerStyle="{DynamicResource ListViewItemNavbarStyle}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBox Text="{Binding Path=., Mode=TwoWay}"
+                                         Background="Transparent"
+                                         BorderBrush="Transparent"
+                                         BorderThickness="0"
+                                         Foreground="#44e800"
+                                         IsReadOnly="True"
+                                         FontSize="13"
+                                         Margin="5,5"
+                                         TextWrapping="Wrap" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
 
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+
+
+                </ListView>
+
+                <!--Input textbox for commands-->
                 <Grid Grid.Row="2">
                     <TextBox Style="{DynamicResource TextBoxStyleInput}"
                              Text="{Binding SerialPortCommand, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
@@ -68,29 +96,18 @@
                     </TextBox>
                 </Grid>
                 
-
             </Grid>
 
-            <Grid Grid.Column="1">
+            <!--Test-->
+            <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition  Height="50"/>
                     <RowDefinition  Height="450"/>
+                    <RowDefinition  Height="auto"/>
                     <RowDefinition  Height="auto" />
                 </Grid.RowDefinitions>
-                <Button Grid.Row="0"
-                        Margin="5"
-                        FontFamily="Arial"
-                        Width="150"
-                        Height="30"
-                        FontSize="15"
-                        IsDefault="True"
-                        Focusable="True"
-                        HorizontalAlignment="Left"
-                        Cursor="Hand"
-                        Content="{Binding SerialPortConnectionStatusMessage, UpdateSourceTrigger=PropertyChanged}"
-                        Command="{Binding SerialPortTryToConnectCommand, UpdateSourceTrigger=PropertyChanged}" />
-
-                <Grid Grid.Row="1">
+   
+                <!--FPV pro image-->
+                <Grid Grid.Row="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto"/>
@@ -99,21 +116,438 @@
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            Focusable="False"
-                           Height="400"/>
+                           Height="400">
+                        <Image.LayoutTransform>
+                            <RotateTransform Angle="180"
+                                             CenterX="0.5"
+                                             CenterY="0.5" />
+                        </Image.LayoutTransform>
+                    </Image>
                 </Grid>
 
-                <Grid Grid.Row="2"
+                <!--Calibration buttons-->
+                <Grid Grid.Row="0"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center">
-                    <StackPanel Orientation="Horizontal">
-
-                    </StackPanel>
                     
+                    <!--Right button-->
+                    <Grid>
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsVisibleSwitchButtonR, UpdateSourceTrigger=PropertyChanged}"
+                                                 Value="True">
+                                        <Setter Property="Visibility"
+                                                Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <!--CALIBRATION-->
+                        <Grid>
+                            <Path Height="25"
+                                  Margin="0,-18,336,0"
+                                  Data="M503.1665 104.5L494.5 92l8.6665-12.5h47.6671L559.5 92l-8.6664 12.5z"
+                                  Fill="Transparent"
+                                  Stretch="Uniform"
+                                  Stroke="{DynamicResource ColorRed}"
+                                  StrokeThickness="3">
+                                <Path.RenderTransformOrigin>
+                                    <Point X="0.5"
+                                           Y="0.5" />
+                                </Path.RenderTransformOrigin>
+                                <Path.RenderTransform>
+                                    <RotateTransform Angle="90" />
+                                </Path.RenderTransform>
+                            </Path>
+
+                        </Grid>
+                        <!--CALIBRATION IS VALID-->
+                        <Grid>
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Test, UpdateSourceTrigger=PropertyChanged}"
+                                                     Value="True">
+                                            <Setter Property="Visibility"
+                                                    Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <Path Height="25"
+                                  Margin="0,-18,336,0"
+                                  Data="M503.1665 104.5L494.5 92l8.6665-12.5h47.6671L559.5 92l-8.6664 12.5z"
+                                  Fill="Transparent"
+                                  Stretch="Uniform"
+                                  Stroke="#44e800"
+                                  StrokeThickness="3">
+                                <Path.RenderTransformOrigin>
+                                    <Point X="0.5"
+                                           Y="0.5" />
+                                </Path.RenderTransformOrigin>
+                                <Path.RenderTransform>
+                                    <RotateTransform Angle="90" />
+                                </Path.RenderTransform>
+                            </Path>
+                        </Grid>
+                        
+                    </Grid>
+
+                    <!--Left button-->
+                    <Grid>
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsVisibleSwitchButtonL, UpdateSourceTrigger=PropertyChanged}"
+                                                 Value="True">
+                                        <Setter Property="Visibility"
+                                                Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <!--CALIBRATION-->
+                        <Grid>
+                            <Path Height="25"
+                                  Margin="0,-18,488,0"
+                                  Data="M503.1665 104.5L494.5 92l8.6665-12.5h47.6671L559.5 92l-8.6664 12.5z"
+                                  Fill="Transparent"
+                                  Stretch="Uniform"
+                                  Stroke="{DynamicResource ColorRed}"
+                                  StrokeThickness="3">
+                                <Path.RenderTransformOrigin>
+                                    <Point X="0.5"
+                                           Y="0.5" />
+                                </Path.RenderTransformOrigin>
+                                <Path.RenderTransform>
+                                    <RotateTransform Angle="90" />
+                                </Path.RenderTransform>
+                            </Path>
+
+                        </Grid>
+                        <!--CALIBRATION IS VALID-->
+                        <Grid>
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Test, UpdateSourceTrigger=PropertyChanged}"
+                                                     Value="True">
+                                            <Setter Property="Visibility"
+                                                    Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <Path Height="25"
+                                  Margin="0,-18,488,0"
+                                  Data="M503.1665 104.5L494.5 92l8.6665-12.5h47.6671L559.5 92l-8.6664 12.5z"
+                                  Fill="Transparent"
+                                  Stretch="Uniform"
+                                  Stroke="#44e800"
+                                  StrokeThickness="3">
+                                <Path.RenderTransformOrigin>
+                                    <Point X="0.5"
+                                           Y="0.5" />
+                                </Path.RenderTransformOrigin>
+                                <Path.RenderTransform>
+                                    <RotateTransform Angle="90" />
+                                </Path.RenderTransform>
+                            </Path>
+                        </Grid>
+                    </Grid>
+
+                    <!--Mid button-->
+                    <Grid>
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsVisibleSwitchButtonM, UpdateSourceTrigger=PropertyChanged}"
+                                                 Value="True">
+                                        <Setter Property="Visibility"
+                                                Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <!--CALIBRATION-->
+                        <Grid>
+                            <Ellipse Width="43"
+                                     Height="43"
+                                     Margin="0,-18,410,0"
+                                     Stroke="{DynamicResource ColorRed}"
+                                     StrokeThickness="3"
+                                     Fill="Transparent" />
+                        </Grid>
+                        <!--CALIBRATION IS VALID-->
+                        <Grid>
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Test, UpdateSourceTrigger=PropertyChanged}"
+                                                     Value="True">
+                                            <Setter Property="Visibility"
+                                                    Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <Ellipse Width="43"
+                                     Height="43"
+                                     Margin="0,-18,410,0"
+                                     Stroke="#44e800"
+                                     StrokeThickness="3"
+                                     Fill="Transparent" />
+                        </Grid>
+
+
+
+                        
+                    </Grid>
+
+                    <!--Down button-->
+                    <Grid>
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsVisibleSwitchButtonD, UpdateSourceTrigger=PropertyChanged}"
+                                                 Value="True">
+                                        <Setter Property="Visibility"
+                                                Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <!--CALIBRATION-->
+                        <Grid>
+                            <Path Height="25"
+                                  Margin="0,-95,410,0"
+                                  Data="M503.1665 104.5L494.5 92l8.6665-12.5h47.6671L559.5 92l-8.6664 12.5z"
+                                  Fill="Transparent"
+                                  Stretch="Uniform"
+                                  Stroke="{DynamicResource ColorRed}"
+                                  StrokeThickness="3" />
+
+                        </Grid>
+                        <!--CALIBRATION IS VALID-->
+                        <Grid>
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Test, UpdateSourceTrigger=PropertyChanged}"
+                                                     Value="True">
+                                            <Setter Property="Visibility"
+                                                    Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <Path Height="25"
+                                  Margin="0,-95,410,0"
+                                  Data="M503.1665 104.5L494.5 92l8.6665-12.5h47.6671L559.5 92l-8.6664 12.5z"
+                                  Fill="Transparent"
+                                  Stretch="Uniform"
+                                  Stroke="#44e800"
+                                  StrokeThickness="3" />
+                        </Grid>
+                    </Grid>
+
+                    <!--Up button-->
+                    <Grid>
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsVisibleSwitchButtonU, UpdateSourceTrigger=PropertyChanged}"
+                                                 Value="True">
+                                        <Setter Property="Visibility"
+                                                Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <!--CALIBRATION-->
+                        <Grid>
+                            <Path Height="25"
+                                  Margin="0,60,410,0"
+                                  Data="M503.1665 104.5L494.5 92l8.6665-12.5h47.6671L559.5 92l-8.6664 12.5z"
+                                  Fill="Transparent"
+                                  Stretch="Uniform"
+                                  Stroke="{DynamicResource ColorRed}"
+                                  StrokeThickness="3" />
+                        </Grid>
+                        <!--CALIBRATION IS VALID-->
+                        <Grid>
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Test, UpdateSourceTrigger=PropertyChanged}"
+                                                     Value="True">
+                                            <Setter Property="Visibility"
+                                                    Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <Path Height="25"
+                                  Margin="0,60,410,0"
+                                  Data="M503.1665 104.5L494.5 92l8.6665-12.5h47.6671L559.5 92l-8.6664 12.5z"
+                                  Fill="Transparent"
+                                  Stretch="Uniform"
+                                  Stroke="#44e800"
+                                  StrokeThickness="3" />
+                        </Grid>
+                    </Grid>
                 </Grid>
-                
+
+                <!--Calibration progress-->
+                <Grid Grid.Row="0"
+                      Margin="0,30"
+                      VerticalAlignment="Bottom">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility"
+                                    Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsCalibrationActive, UpdateSourceTrigger=PropertyChanged}"
+                                             Value="true">
+                                    <Setter Property="Visibility"
+                                            Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <StackPanel>
+                        <TextBlock Text="Calibration progress"
+                                   Foreground="{DynamicResource IconActiveBrush}"
+                                   HorizontalAlignment="Center"
+                                   Opacity="0.8" />
+                        <ProgressBar Width="150"
+                                     Height="15"
+                                     Minimum="0"
+                                     Maximum="15"
+                                     Margin="0,5"
+                                     Value="{Binding CalibrationStage, UpdateSourceTrigger=PropertyChanged}"
+                                     Foreground="{DynamicResource GreenBrush}"
+                                     BorderBrush="{DynamicResource IconActiveBrush}"
+                                     Background="Transparent"
+                                     Opacity="0.7" />
+                    </StackPanel>
+                </Grid>
+
+                <!--Automatic test parameters-->
+                <Grid Grid.Row="1">
+                    <ListView ItemContainerStyle="{DynamicResource ListViewItemNavbarStyle}"
+                              Background="Transparent"
+                              BorderBrush="Transparent"
+                              ItemsSource="{Binding FpvTestParameterCollection, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                              SelectedItem="{Binding SelectedFpvTestParameter,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                              ScrollViewer.VerticalScrollBarVisibility="Hidden">
+
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"
+                                           Cursor="Hand"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           MaxWidth="650"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="5,5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="8" />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <Path Height="30"
+                                          Width="30"
+                                          Data="{Binding PathData}"
+                                          Fill="{Binding PathFill}"
+                                          Stretch="Uniform"/>
+                                    <TextBlock Grid.Row="2"
+                                               FontSize="11"
+                                               HorizontalAlignment="Center"
+                                               FontFamily="Arial"
+                                               Text="{Binding Name}"
+                                               Foreground="{DynamicResource IconActiveBrush}">
+
+                                    </TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+
+                <!--Command test parameters-->
+                <Grid Grid.Row="2">
+                    <ListView ItemContainerStyle="{DynamicResource ListViewItemNavbarStyle}"
+                              Background="Transparent"
+                              BorderBrush="Transparent"
+                              ItemsSource="{Binding FpvCommandParameterCollection, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                              SelectedItem="{Binding SelectedFpvCommandParameter,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                              ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"
+                                           Cursor="Hand"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           MaxWidth="650" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="5,5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="8" />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <Path Height="30"
+                                          Width="30"
+                                          Data="{Binding PathData}"
+                                          Fill="{Binding PathFill}"
+                                          Opacity="0.7"
+                                          Stretch="Uniform" />
+                                    <TextBlock Grid.Row="2"
+                                               FontSize="11"
+                                               HorizontalAlignment="Center"
+                                               FontFamily="Arial"
+                                               Text="{Binding Name}"
+                                               Foreground="{DynamicResource IconActiveBrush}">
+                                    </TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+
             </Grid>
-
-
         </Grid>
     </Grid>
 </UserControl>

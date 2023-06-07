@@ -10,6 +10,14 @@
     <SolidColorBrush x:Key="ColorDarkRed">#B9121B</SolidColorBrush>
     <!--#endregion-->
 
+    <Color x:Key="GreenColor">#44e800</Color>
+    <SolidColorBrush x:Key="GreenBrush"
+                     Color="{StaticResource GreenColor}" />
+
+    <Color x:Key="RedColor">#ff2329</Color>
+    <SolidColorBrush x:Key="RedBrush"
+                     Color="{StaticResource RedColor}" />
+    
     <!--Search Background Color-->
     <Color x:Key="SearchBackgroundColor">#000000</Color>
     <SolidColorBrush x:Key="SearchBackgroundBrush"

@@ -58,9 +58,9 @@ namespace FPV.ViewModels
         {
             NavigationService = navigationService;
 
-            ProductCardModel pilot = new ProductCardModel{Name = "FPV.ONE PILOT", ImageSource = "../Assets/Images/fpv-one-pilot.png" };
-            ProductCardModel race = new ProductCardModel { Name = "FPV.ONE RACE/FLYE FILE 533", ImageSource = "../Assets/Images/fpv-one-race.png" };
-            ProductCardModel pro = new ProductCardModel { Name = "FPV.ONE PRO", ImageSource = "../Assets/Images/fpv-one-pro.png" };
+            ProductCardModel pilot = new ProductCardModel{Name = "FPV.ONE PILOT", ImageSource = "../Assets/Images/fpv-one-pilot-card.png" };
+            ProductCardModel race = new ProductCardModel { Name = "FPV.ONE RACE/FLYE FILE 533", ImageSource = "../Assets/Images/fpv-one-race-card.png" };
+            ProductCardModel pro = new ProductCardModel { Name = "FPV.ONE PRO", ImageSource = "../Assets/Images/fpv-one-pro-card.png" };
 
             ProductModelCollection = new ObservableCollection<ProductCardModel>();
             ProductModelCollection.Add(pilot);
